@@ -1,172 +1,42 @@
-/*
+//let date = new Date // date - конструктор
 
-console.log(window);
-
-
-//  setTimeout    - задержка выполнения функции в ms
-window.setTimeout(function(){
-  console.log('Hi, ich bin hier.');
-},2000)
-
-setTimeout( () =>{
-  console.log('Hi, ich bin hier.'); // упрощённо стрелочная функция, если глобально виндов можно упустить.
-}, 2000)
+//let date = new Date('22 october 1987')
+let date = new Date(1987, 9,22,03,10,02,200)
 
 
+console.log(date)
+console.dir(typeof date)
+console.dir(date)  // через прототип узнаём функтии объекта
+
+date.setFullYear(1988) // передача объекту года
+date.setMonth(9,25)
+date.setHours(3,34,34,20)
 
 
-const logger =(str) => {
-  console.log(`Hi, ich bin ${str}`);
-}
-
-setTimeout(logger('Alex'),2000)  // срабатывает сразу , не ждя 2000мс, нужна функция обёртка
+date.setDate(date.getDate() + 100) // дата сто дней от сегоднешнего дня
 
 
 
-setTimeout(()=>{
-  logger('Alex')
-}, 2000)
+console.log('Year ' + date.getFullYear())
+console.log('Month ' + (date.getMonth()+1))
+console.log('Date ' + date.getDate())
+console.log('Day ' + date.getDay())
 
+console.log('Date ' + date.getUTCDate()) // среднее время
 
-let idTim = setTimeout(() => {
-  logger('Alex')
-}, 2000)
+console.log(date)
 
-clearTimeout(idTim) // чистка Timeout по индефикатору через задачу переменной
+//  ---let date = new Date(0)  --- times tamp
 
+console.log(date.toDateString())
+console.log(date.toTimeString())
 
+console.log(date.toLocaleDateString('ru'))
+console.log(date.toLocaleTimeString())
 
+console.log(date.toISOString('ru'))
 
-
-//---------------- Setinterval --------------- ----
-//   отрабатывает/ повторяет с интервалом в мс 
-//    первая отработка после истечения первого интервала
-
-setInterval(() => {
-  logger('Alex')
-}, 2000)
-
-
-let idInt = setInterval(() => {
-  logger('Alex')
-}, 2000)
-
-clearInterval(idInt)
-
- 
-let active = false
-let idTim
-
-document.addEventListener('click', () => {
-  //if(active) {
-    active = false
-  } else {
-    active = true
-  //}
-  
-  active = !active
-
-
-  logger('Alex')
-
-})
-
-
-const logger = (str) => {
-
-
-  if (active) {
-    console.log(`Hi, ich bin ${str}`);
-    idTim = setTimeout(() => {
-      logger('Alex')
-    }, 500)
-  } else {
-    clearTimeout(idTim)
-  }
-}
-
-
-
-const air = document.querySelector('.air')
-const man = document.querySelector('.man')
-
-let count = 0
-let idInterval
-
-const flayAnimate =()=> {
-  count++
-
-  man.style.top=count + 'px'
-  air.style.left =count*2 + 'px'
-
-
-  if (count<200) setTimeout(flayAnimate,10)
-
-}
-
-flayAnimate()
-
-//-----------------------------------------------
-
-const flayAnimate = () => {
-  count++
-
-  man.style.top = count + 'px'
-  air.style.left = count * 2 + 'px'
-
-
-  if (count < 200) {
-    man.style.top = count + 'px'
-    air.style.left = count * 2 + 'px'
-  } else if (count<500) {
-    air.style.left = count * 2 + 'px'
-  } else {
-    clearInterval(idInterval)
-  }
-
-}
-
-idInterval = setInterval(flayAnimate,10)
-
-  */
-const air = document.querySelector('.air')
-const man = document.querySelector('.man')
-
-let count = 0
-let idInterval
-let active=true
-
-
-
-//-----------------------------------------------
-
-const flayAnimate = () => {
-  count++
-  idInterval=requestAnimationFrame(flayAnimate)
-
-  
-
-
-  if (count < 200) {
-    man.style.height = count + 'px'
-    air.style.width = count * 2 + 'px'
-  } else if (count < 500) {
-    air.style.width = count * 2 + 'px'
-  } else {
-    cancelAnimationFrame(idInterval)
-  }
-
-}
-
-document.addEventListener('click', () => {
-  if (active) {
-    cancelAnimationFrame(idInterval)
-    active=false
-  } else {
-    idInterval = requestAnimationFrame(flayAnimate)
-    active= true
-  }
-})
+console.log(date.toISOString('en').substr(0,10))
 
 
 
